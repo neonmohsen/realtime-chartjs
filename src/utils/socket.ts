@@ -1,8 +1,12 @@
 import { toast } from "react-toastify";
+import { Store } from "redux";
+import { savePrices } from "../redux/prices/priceAction";
+import store from "../redux/store";
 
 export default class Client {
   static clientSingleton: Client;
   public socket?: WebSocket;
+  public store: Store = store;
 
   public constructor() {
     this.init();
@@ -48,17 +52,16 @@ export default class Client {
     });
   }
 
-  onMessage = (response: MessageEvent): any => {
+  onMessage = (response: MessageEvent): void => {
     try {
       const message = JSON.parse(response.data);
-      // ata we should show
-      console.log("MESSAGE", message);
+      store.dispatch(savePrices(message));
     } catch (e) {
       console.error(`error`, e);
     }
   };
 
-  sendRequest(pack: any) {
+  sendRequest(pack: string) {
     if (this.socket?.readyState) this.socket?.send(pack);
   }
 
