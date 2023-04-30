@@ -54,12 +54,9 @@ const initialState: SinglePrice[] = [
 ];
 
 const priceReducer = (state = initialState, action: ReduxAction) => {
-  console.log(action);
   switch (action.type) {
     case SAVE_PRICES: {
-      let updatedState: SinglePrice[] = [...state];
-      updatedState.push(action.payload);
-      return updatedState.slice(-50);
+      return [...state, { ...action.payload }].slice(-50);
     }
 
     default:

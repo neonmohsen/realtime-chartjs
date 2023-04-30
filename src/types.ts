@@ -17,6 +17,7 @@ export interface ReduxAction {
   type: string;
 }
 
-// export interface ChartPropsType {
-
-// }
+export interface ChartPropsType {
+  data: ChartDataType;
+  // height: string;
+}
