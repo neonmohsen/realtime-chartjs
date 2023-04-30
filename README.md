@@ -1,6 +1,6 @@
 ### `npm start`
 
-use this command to run project.\
+use this command to run project./
 
 ### folders
 
