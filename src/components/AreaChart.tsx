@@ -1,8 +1,8 @@
 import { ChartPropsType } from "../types";
 import {
   Chart as ChartJS,
-  BarElement,
-  BarController,
+  BubbleController,
+  PointElement,
   LinearScale,
   TimeScale,
 } from "chart.js";
@@ -13,16 +13,18 @@ import { useEffect, useRef, useState } from "react";
 import { MAX_PRICES_LENGTH } from "../redux/prices/priceReducer";
 
 ChartJS.register(
-  BarElement,
-  BarController,
+  BubbleController,
+  PointElement,
   LinearScale,
   TimeScale,
   StreamingPlugin
 );
 
-function BarChart({ prices }: ChartPropsType) {
+function BubbleChart({ prices }: ChartPropsType) {
   const chartRef = useRef<ChartJS>(null);
-  const [chartData, setChartData] = useState<{ x: number; y: number }[]>([]);
+  const [chartData, setChartData] = useState<
+    { x: number; y: number; r: number }[]
+  >([]);
 
   useEffect(() => {
     const lastPrice = prices[prices.length - 1];
@@ -31,6 +33,7 @@ function BarChart({ prices }: ChartPropsType) {
       const newData = {
         x: lastPrice.time,
         y: lastPrice.USD,
+        r: Math.random() * 10 + 2, // Random radius value for the bubble
       };
 
       // Update chartData based on newData, remove the first element if it reaches the limit
@@ -45,14 +48,14 @@ function BarChart({ prices }: ChartPropsType) {
 
   return (
     <Chart
-      type="bar"
+      type="bubble"
       ref={chartRef}
       data={{
         datasets: [
           {
             label: "Dataset 1",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgb(255, 99, 132)",
             borderWidth: 1,
             data: chartData,
           },
@@ -76,4 +79,4 @@ function BarChart({ prices }: ChartPropsType) {
   );
 }
 
-export default BarChart;
+export default BubbleChart;

@@ -10,9 +10,15 @@
     "@types/node": "^16.18.25",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
-    "chart.js": "^4.3.0",
+    "apexcharts": "^3.40.0",
+    "chart.js": "3.7.1",
+    "chartjs-adapter-luxon": "1.1.0",
+    "chartjs-plugin-streaming": "2.0.0",
+    "faker": "6.6.6",
+    "luxon": "2.4.0",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-chartjs-2": "4.1.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
@@ -44,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.9.37",
+    "@types/chartjs": "^0.0.31",
+    "@types/luxon": "^3.3.0"
   }
 }

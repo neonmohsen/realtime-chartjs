@@ -9,7 +9,7 @@ export interface ChartDataType {
 
 export interface SinglePrice {
   USD: number;
-  time: string;
+  time: number;
 }
 
 export interface ReduxAction {
@@ -18,6 +18,6 @@ export interface ReduxAction {
 }
 
 export interface ChartPropsType {
-  data: ChartDataType;
+  prices: SinglePrice[];
   // height: string;
 }

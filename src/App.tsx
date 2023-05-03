@@ -1,62 +1,57 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import './index.css';
-import Client from "./utils/socket"
-import BarChart from './components/BarChart';
-import LineChart from './components/LineChart';
-import { ChartDataType, SinglePrice } from './types';
+import { useSelector } from "react-redux";
+import "./index.css";
+import Client from "./utils/socket";
+import LineChart from "./components/LineChart";
+import { SinglePrice } from "./types";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import BarChart from "./components/BarChart";
+import AreaChart from "./components/AreaChart";
+import ScatterChart from "./components/ScatterChart";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function App() {
-  const prices = useSelector((state: SinglePrice[]) => state)
-  const [chartData, setChartDate] = useState<ChartDataType | null>(null)
+  const prices = useSelector((state: SinglePrice[]) => state);
+  // const [chartData, setChartDate] = useState<ChartDataType | null>(null);
   // call socket Class
-  const client = Client.instance
-
-  useEffect(() => {
-    let updatedDataset: ChartDataType = {
-      labels: [],
-      datasets: [
-        {
-          data: [],
-          backgroundColor: "blueViolet",
-          borderColor: "#555555",
-        },
-      ],
-    };
-
-    responsivePointsSlicer(prices).map((item: SinglePrice) => {
-      updatedDataset!.datasets[0].data = [...updatedDataset!.datasets[0].data, item.USD];
-      updatedDataset!.labels = [...updatedDataset!.labels, item.time];
-    });
-    setChartDate(updatedDataset);
-  }, [prices])
-
-
-  const responsivePointsSlicer = (value: SinglePrice[]) => {
-    if (window.innerWidth < 1000 && window.innerWidth > 700) {
-      return value.slice(-30)
-    } else if (window.innerWidth < 700) {
-      return value.slice(-20)
-    } else {
-      return value
-    }
-  }
+  const client = Client.instance;
 
   return (
     <div className="App">
-      {
-        chartData &&
-        <>
-          <h1 className='chartHeader'>{`last 50 prices of USD at: ${new Date().toLocaleDateString()}`}</h1>
+      <h1 className="chartHeader">{`last 50 prices of USD at: ${new Date().toLocaleDateString()}`}</h1>
 
-          <div style={{ height: "40vh" }}>
-            <BarChart data={chartData} />
-          </div>
-          <div style={{ height: "40vh" }}>
-            <LineChart data={chartData} />
-          </div>
-        </>
-      }
+      <div className="chartContainer">
+        <div className="chartItem">
+          <LineChart prices={prices} />
+        </div>
+
+        <div className="chartItem">
+          <AreaChart prices={prices} />
+        </div>
+        <div className="chartItem">
+          <ScatterChart prices={prices} />
+        </div>
+        <div className="chartItem">
+          <BarChart prices={prices} />
+        </div>
+      </div>
     </div>
   );
 }

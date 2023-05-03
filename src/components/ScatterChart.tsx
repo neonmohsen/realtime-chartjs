@@ -1,8 +1,8 @@
 import { ChartPropsType } from "../types";
 import {
   Chart as ChartJS,
-  BarElement,
-  BarController,
+  ScatterController,
+  PointElement,
   LinearScale,
   TimeScale,
 } from "chart.js";
@@ -13,14 +13,14 @@ import { useEffect, useRef, useState } from "react";
 import { MAX_PRICES_LENGTH } from "../redux/prices/priceReducer";
 
 ChartJS.register(
-  BarElement,
-  BarController,
+  ScatterController,
+  PointElement,
   LinearScale,
   TimeScale,
   StreamingPlugin
 );
 
-function BarChart({ prices }: ChartPropsType) {
+function ScatterChart({ prices }: ChartPropsType) {
   const chartRef = useRef<ChartJS>(null);
   const [chartData, setChartData] = useState<{ x: number; y: number }[]>([]);
 
@@ -45,14 +45,14 @@ function BarChart({ prices }: ChartPropsType) {
 
   return (
     <Chart
-      type="bar"
+      type="scatter"
       ref={chartRef}
       data={{
         datasets: [
           {
             label: "Dataset 1",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            borderColor: "rgb(255, 99, 132)",
             borderWidth: 1,
             data: chartData,
           },
@@ -76,4 +76,4 @@ function BarChart({ prices }: ChartPropsType) {
   );
 }
 
-export default BarChart;
+export default ScatterChart;
