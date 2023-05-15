@@ -16,6 +16,7 @@ import {
 import BarChart from "./components/BarChart";
 import AreaChart from "./components/AreaChart";
 import ScatterChart from "./components/ScatterChart";
+import LineChart1 from "./components/LineChart1";
 
 ChartJS.register(
   CategoryScale,
@@ -50,6 +51,9 @@ function App() {
         </div>
         <div className="chartItem">
           <BarChart prices={prices} />
+        </div>
+        <div className="chartItem">
+          <LineChart1 />
         </div>
       </div>
     </div>

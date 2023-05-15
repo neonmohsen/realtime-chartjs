@@ -31,6 +31,10 @@ function LineChart({ prices }: ChartPropsType) {
     }
   }, [prices]);
 
+  useEffect(() => {
+    console.log(chartData);
+  }, [chartData]);
+
   return (
     <Chart
       type="line"
